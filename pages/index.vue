@@ -12,11 +12,11 @@
           <p>Manipulate images with zoom, crop, brightness, and contrast.</p>
           <ImageManipulation />
         </div>
-        <!-- DICOM Viewer Card (Place your own DICOM Viewer component here) -->
+        <!-- DICOM Viewer Card -->
         <div class="card">
           <h3>DICOM Viewer</h3>
           <p>Upload and view DICOM images with metadata.</p>
-          <!-- <DicomViewer /> -->
+          <DicomViewer />
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import ImageManipulation from '~/components/ImageManipulation.vue';
-// Import DICOM Viewer if available (not included in this code)
+import DicomViewer from '~/components/DicomViewer.vue';
 </script>
 
 <style scoped>

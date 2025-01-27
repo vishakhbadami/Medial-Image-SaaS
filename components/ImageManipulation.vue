@@ -86,10 +86,20 @@ const adjustContrast = () => {
 </script>
 
 <style scoped>
+
+.image-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adds spacing between buttons */
+  justify-content: center; /* Centers buttons horizontally */
+  margin-top: 20px; /* Adds space above the button group */
+}
+
 .image-manipulation {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
 }
 
 .image-container {
