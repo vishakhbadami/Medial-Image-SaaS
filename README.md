@@ -2,6 +2,10 @@
 
 ## Build Setup
 
+## Clone this Repository 
+
+$ git clone https://github.com/vishakhbadami/Medial-Image-SaaS.git
+
 ```bash
 # install dependencies
 $ npm install
