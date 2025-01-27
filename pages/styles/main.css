@@ -1,0 +1,13 @@
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
