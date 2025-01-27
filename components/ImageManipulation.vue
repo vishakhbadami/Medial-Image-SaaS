@@ -1,48 +1,87 @@
 <template>
   <div class="image-manipulation">
-    <h4 class="text-xl font-semibold">Manipulate Image</h4>
-    <div class="image-controls">
+    <h4 class="text-xl font-semibold mb-4">Upload and Manipulate Image</h4>
+
+    <!-- Image Uploader -->
+    <input
+      type="file"
+      accept="image/*"
+      @change="handleImageUpload"
+      class="mb-4"
+    />
+
+    <!-- Display Uploaded Image -->
+    <div v-if="imageSrc" class="image-container mb-4">
+      <img
+        ref="image"
+        :src="imageSrc"
+        alt="Uploaded Image"
+        class="image-preview"
+        :style="imageStyle"
+      />
+    </div>
+
+    <!-- Image Manipulation Controls -->
+    <div v-if="imageSrc" class="image-controls">
       <button @click="zoomIn">Zoom In</button>
       <button @click="zoomOut">Zoom Out</button>
       <button @click="cropImage">Crop Image</button>
       <button @click="adjustBrightness">Adjust Brightness</button>
       <button @click="adjustContrast">Adjust Contrast</button>
     </div>
-    <div class="image-container">
-      <img :src="imageSrc" alt="Manipulated Image" class="image-preview" />
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-const imageSrc = ref('C:\Users\badam\my-saas-app\components\images\Responsive Phone.jpg');  // Path to your image
+const imageSrc = ref<string | null>(null); // Holds the uploaded image's source
+const zoomLevel = ref(1); // Tracks the zoom level
+const brightness = ref(100); // Default brightness value
+const contrast = ref(100); // Default contrast value
 
-// Functions to handle image manipulation (for demonstration purposes)
+// Handle Image Upload
+const handleImageUpload = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (file) {
+    imageSrc.value = URL.createObjectURL(file); // Create a temporary URL for the uploaded image
+  }
+};
+
+// Image Style Computation based on zoom, brightness, and contrast
+const imageStyle = computed(() => ({
+  transform: `scale(${zoomLevel.value})`,
+  filter: `brightness(${brightness.value}%) contrast(${contrast.value}%)`,
+}));
+
+// Zoom In
 const zoomIn = () => {
-  console.log('Zoom In');
-  // Implement zoom functionality
+  if (zoomLevel.value < 3) { // Limiting the zoom level to 3x
+    zoomLevel.value += 0.1;
+  }
 };
 
+// Zoom Out
 const zoomOut = () => {
-  console.log('Zoom Out');
-  // Implement zoom functionality
+  if (zoomLevel.value > 0.5) { // Limiting the zoom level to 0.5x
+    zoomLevel.value -= 0.1;
+  }
 };
 
+// Crop Image (Placeholder)
 const cropImage = () => {
+  // Cropping functionality can be added using canvas or a library like 'cropperjs'
   console.log('Crop Image');
-  // Implement crop functionality
 };
 
+// Adjust Brightness
 const adjustBrightness = () => {
-  console.log('Adjust Brightness');
-  // Implement brightness adjustment
+  brightness.value = brightness.value === 100 ? 120 : 100; // Toggle brightness
 };
 
+// Adjust Contrast
 const adjustContrast = () => {
-  console.log('Adjust Contrast');
-  // Implement contrast adjustment
+  contrast.value = contrast.value === 100 ? 120 : 100; // Toggle contrast
 };
 </script>
 
@@ -53,11 +92,21 @@ const adjustContrast = () => {
   align-items: center;
 }
 
-.image-controls {
-  margin-bottom: 16px;
+.image-container {
+  max-width: 300px;
+  max-height: 300px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
-button {
+.image-preview {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.image-controls button {
   margin-right: 8px;
   padding: 8px 16px;
   background-color: #007bff;
@@ -67,16 +116,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.image-controls button:hover {
   background-color: #0056b3;
-}
-
-.image-container {
-  margin-top: 20px;
-}
-
-.image-preview {
-  max-width: 100%;
-  height: auto;
 }
 </style>
