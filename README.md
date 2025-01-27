@@ -10,7 +10,7 @@ $ npm install
 $ npm install nuxi
 
 # serve with hot reload at localhost:3000
-$ npm nuxi dev
+$ npx nuxi dev
 
 ## Tech Stack Used :
 # -TypeScript
